@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import './keen-dashboards.css';
-import Jumbotron from 'react-bootstrap/lib/Jumbotron';
+import Panel from 'react-bootstrap/lib/Panel';
 
 class App extends Component {
   render() {
@@ -32,21 +32,16 @@ class App extends Component {
 class Columns extends Component {
   render() {
     return (
-      <Jumbotron>
-        <div className="col-sm-4">
-          <div className="chart-wrapper">
-            <div className="chart-title">
-              Pageviews by browser (past 24 hours)
-              </div>
-            <div className="chart-stage">
-              <img data-src="holder.js/100%x350/white" />
-            </div>
-            <div className="chart-notes">
-              This is a sample text region to describe this chart.
-              </div>
-          </div>
-        </div>
-      </Jumbotron>
+      <div className="col-sm-4">
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">Panel heading with a title</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <img data-src="holder.js/100%x350/white" />
+          </Panel.Body>
+        </Panel>
+      </div>
     );
   }
 }
@@ -54,29 +49,23 @@ class Columns extends Component {
 class Row extends Component {
   render() {
     return (
-      <Jumbotron>
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Impressions by advertiser
-        </div>
-              <div class="chart-stage">
-                <img data-src="holder.js/100%x150/white" />
-              </div>
-              <div className="chart-notes">
-                Notes go down here
-        </div>
-            </div>
-          </div>
+    <div className="row">
+      <div className="col-sm-12">
+        <Panel>
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">chart goes here</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <img data-src="holder.js/100%x350/white" />
+          </Panel.Body>
+        </Panel>
+      </div>
+    </div>
+    );
+  }
+}
 
-        </div>
-        </Jumbotron>
-        );
-        }
-      }
-      
-      
-      
-      
-  export default App;
+
+
+
+export default App;
