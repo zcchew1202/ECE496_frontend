@@ -39,16 +39,23 @@ class App extends Component {
 class Images extends Component {
   render() {
 
-      let array = ["original", "input", "output"];
-
-      let images = array.map(image => {
-        let imageStr = 'https://698920bf.ngrok.io/getFile?fileDir=' + image;
-        console.log(imageStr);
-         return  <div className="col-sm-4"><Panel><Panel.Heading><Panel.Title componentClass="h3">{image}</Panel.Title></Panel.Heading><Panel.Body><img key={image} src={imageStr} alt="" className="img-responsive" /></Panel.Body></Panel></div>
-      });
+      var array = ["original", "input", "output"];
+      var panels = [];
+      for(let i=0; i<5 ;i++){
+        var images = array.map(image => {
+        let imageStr = 'https://4770e0a9.ngrok.io/getFile?fileDir=' + image + '&&index=' + i;
+        return  <div className="col-sm-4"><Panel><Panel.Heading><Panel.Title componentClass="h3">{image}</Panel.Title></Panel.Heading><Panel.Body><img key={image} src={imageStr} alt="" className="img-responsive" /></Panel.Body></Panel></div>
+        });
+        panels.push(images);
+      }
+      // let images = array.map(image => {
+      //   let imageStr = 'https://4770e0a9.ngrok.io/getFile?fileDir=' + image + '&&index=0';
+      //   console.log(imageStr);
+      //    return  <div className="col-sm-4"><Panel><Panel.Heading><Panel.Title componentClass="h3">{image}</Panel.Title></Panel.Heading><Panel.Body><img key={image} src={imageStr} alt="" className="img-responsive" /></Panel.Body></Panel></div>
+      // });
       return (
         <div className="row">
-            {images}
+            {panels}
           </div>
       );
   }
@@ -63,7 +70,7 @@ class Row extends Component {
     .then(function(myJson) {
       console.log(myJson);
     });
-    
+
     return (
     <div className="row">
       <div className="col-sm-12">
@@ -72,7 +79,6 @@ class Row extends Component {
             <Panel.Title componentClass="h3">chart goes here</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            <Bar data={} />
           </Panel.Body>
         </Panel>
       </div>
