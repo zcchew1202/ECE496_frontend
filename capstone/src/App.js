@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import './keen-dashboards.css';
 import Panel from 'react-bootstrap/lib/Panel';
-import Bar from 'react-chartjs-2';
+import {SsimRangeChart} from "./charts/bar"
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+          <SsimRangeChart/>
         <div className="container-fluid">
           <Images/>
           <Row />
@@ -18,23 +18,6 @@ class App extends Component {
     );
   }
 }
-
-// class Columns extends Component {
-//   render() {
-//     return (
-//       <div className="col-sm-4">
-//         <Panel>
-//           <Panel.Heading>
-//             <Panel.Title componentClass="h3">Panel heading with a title</Panel.Title>
-//           </Panel.Heading>
-//           <Panel.Body>
-//             <img data-src="holder.js/100%x350/white" />
-//           </Panel.Body>
-//         </Panel>
-//       </div>
-//     );
-//   }
-// }
 
 class Images extends Component {
   render() {
