@@ -3,20 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import './keen-dashboards.css';
 import Panel from 'react-bootstrap/lib/Panel';
+import Bar from 'react-chartjs-2';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p> */}
         <div className="container-fluid">
-          <Columns/>
+          <Images/>
           <Row />
         </div>
       </div>
@@ -42,7 +36,7 @@ class App extends Component {
 //   }
 // }
 
-class Columns extends Component {
+class Images extends Component {
   render() {
 
       let array = ["original", "input", "output"];
@@ -52,36 +46,9 @@ class Columns extends Component {
         console.log(imageStr);
          return  <div className="col-sm-4"><Panel><Panel.Heading><Panel.Title componentClass="h3">{image}</Panel.Title></Panel.Heading><Panel.Body><img key={image} src={imageStr} alt="" className="img-responsive" /></Panel.Body></Panel></div>
       });
-
-      console.log(images)
       return (
         <div className="row">
             {images}
-          </div>
-      );
-      
-  }
-}
-
-class Stopka extends Component {
-  render() {
-
-      let array = ["og", "comp", "regen"];
-
-      let images = array.map(image => {
-         return <img key={image} src={require(`../pictures/${image}.jpeg`)} alt="" className="img-responsive" />
-      });
-
-      return (
-          <div className="container">
-              <footer className="row">
-                  <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                      <h4>Some text</h4>
-                  </div>
-                  <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                     { images }
-                  </div>
-              </footer>
           </div>
       );
   }
@@ -89,6 +56,14 @@ class Stopka extends Component {
 
 class Row extends Component {
   render() {
+    let data = fetch('https://4770e0a9.ngrok.io/getData')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(myJson) {
+      console.log(myJson);
+    });
+    
     return (
     <div className="row">
       <div className="col-sm-12">
@@ -97,7 +72,7 @@ class Row extends Component {
             <Panel.Title componentClass="h3">chart goes here</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            <img data-src="holder.js/100%x350/white" />
+            <Bar data={} />
           </Panel.Body>
         </Panel>
       </div>
