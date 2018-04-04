@@ -10,10 +10,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <h1> Overall Statistics </h1>
+          <h1 style={{'font-size': '60px', 'font-weight': 'bold'}}>  Statistics </h1>
           <div className="row" style={{display: 'flex', 'flex-direction':'row', padding:'20px', height:'100%',
               'padding-bottom': '100px', 'padding-top': '100px'}}>
               <div style={{width: '75%', height:'100%'}}>
+                  <h2> Histogram of SSIM Scores </h2>
                 <SsimRangeChart />
               </div>
               <div style={{width: '25%'}}>
@@ -67,6 +68,11 @@ class Images extends Component {
 
     fetchPanels(diff){
         var array = ["original", "input", "output"];
+        var map = {
+                'original': 'Original',
+                'input': 'Compressed',
+                'output': 'Generated'
+            };
         // var panelCopy = this.state.panels.splice();
         var images = [];
         this.setState({panels: []});
@@ -75,7 +81,7 @@ class Images extends Component {
             images.push(array.map(image => {
                 let imageStr = url + 'getFile?fileDir=' + image + '&&index=' + i + '&&time=' + new Date().getTime();
                 return  <div className="col-sm-4"><Panel>
-                    <Panel.Heading><Panel.Title componentClass="h3">{image}</Panel.Title></Panel.Heading>
+                    <Panel.Heading><Panel.Title componentClass="h3" style ={{'font-weight': 'bold'}}>{map[image]}</Panel.Title></Panel.Heading>
                     <Panel.Body><img key={image} src={imageStr} alt="" className="img-responsive" style={{width: '100%', height: '100%'}} /></Panel.Body>
                 </Panel></div>
             }));

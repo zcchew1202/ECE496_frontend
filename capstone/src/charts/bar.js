@@ -4,11 +4,14 @@ import { getBarGraphData, getStats } from '../utility/GraphHelper';
 import {defaults} from 'react-chartjs-2';
 
 defaults.global.defaultFontSize = 28;
+defaults.global.defaultFontColor = 'rgb(0,0,0)';
+defaults.global.legend.display = false;
+
 const url='http://localhost:44000/';
 
 const buildRow = (row, i) => {
     let td = Object.keys(row).map((k, j) => {
-        return <td style={{height: '75px', 'font-size': '12px'}} key={j}>{row[k]}</td>
+        return <td style={{height: '75px', 'font-size': '28px'}} key={j}>{row[k]}</td>
     })
     return (
         <tr key={i}>{td}</tr>
@@ -16,7 +19,7 @@ const buildRow = (row, i) => {
 }
 const buildHeader = (header) => {
     let th = header.map((k, j) => {
-        return <th style={{height: '75px', 'font-size': '12px'}} key={j}>{k}</th>
+        return <th style={{height: '75px', 'font-size': '28px'}} key={j}>{k}</th>
     })
     return (
         <tr>{th}</tr>
@@ -28,7 +31,7 @@ const Table = (props) => {
         return (
         <table className="table table-striped">
             <thead>
-            {buildHeader(["Stat", "SSIM Gain", "Disk Reduction"])}
+            {buildHeader(["Stat", "SSIM Gain"])}
             </thead>
             <tbody>
             {buildRow(['Min', '', '' + '%'])}
@@ -44,15 +47,14 @@ const Table = (props) => {
     return (
         <table className="table table-striped">
             <thead>
-            {buildHeader(["Stat", "SSIM Gain", "Disk Reduction"])}
+            {buildHeader(["", ""])}
             </thead>
             <tbody>
-            {buildRow(['Min', props.children.ssim.min, props.children.filesize.min + '%'])}
-            {buildRow(['Max', props.children.ssim.max, props.children.filesize.max + '%'])}
-            {buildRow(['Average', props.children.ssim.avrg, props.children.filesize.avrg + '%'])}
-            {buildRow(['Median', props.children.ssim.median, props.children.filesize.median + '%'])}
-            {buildRow(['Variance', props.children.ssim.vari, props.children.filesize.vari + '%'])}
-            {buildRow(['Standard Deviation', props.children.ssim.dev, props.children.filesize.dev + '%'])}
+            {buildRow(['Min', props.children.ssim.min])}
+            {buildRow(['Max', props.children.ssim.max])}
+            {buildRow(['Average', props.children.ssim.avrg])}
+            {buildRow(['Median', props.children.ssim.median])}
+            {buildRow(['Variance', props.children.ssim.vari])}
             {buildRow(['# Samples', props.children.ssim.samples])}
             </tbody>
         </table>
@@ -125,28 +127,29 @@ export class SsimRangeChart extends React.Component {
     }
     render() {
         return (
-            <Bar
-                data={{
-                    labels: ["(-INF, 0]","(0, 0.025]",
-                        "(0.025, 0.05]","(0.05, 0.075]","(0.075, 0.1]","(0.1, INF)"],
-                    datasets: [
-                        {
-                            label: '# Samples',
-                            backgroundColor: 'rgba(0,0,0,1)',
-                            borderColor: 'rgba(160,99,132,1)',
-                            borderWidth: 1,
-                            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                            hoverBorderColor: 'rgba(255,99,132,1)',
-                            data: this.state.dynamicData
-                        }
-                    ]
-                }}
-                width={100}
-                height={600}
-                options={{
-                    maintainAspectRatio: false
-                }}
-            />
+                <Bar
+                    data={{
+                        labels: ["(-INF, 0]","(0, 0.025]",
+                            "(0.025, 0.05]","(0.05, 0.075]","(0.075, 0.1]","(0.1, INF)"],
+                        datasets: [
+                            {
+                                label: '# Samples',
+                                backgroundColor: 'rgba(0,0,0,0.75)',
+                                borderColor: 'rgba(0,0,0,0.75)',
+                                borderWidth: 1,
+                                hoverBackgroundColor: 'rgba(0,0,0,0.3)',
+                                hoverBorderColor: 'rgba(0,0,0,0.3)',
+                                data: this.state.dynamicData
+                            }
+                        ],
+                        title: [{label:'Histogram'}]
+                    }}
+                    width={100}
+                    height={600}
+                    options={{
+                        maintainAspectRatio: false
+                    }}
+                />
         );
     }
 }
