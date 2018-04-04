@@ -10,14 +10,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <div className="row" style={{display: 'flex', 'flex-direction':'row', padding:'20px', height:'40%', 'padding-bottom': '100px'}}>
-              <div style={{width: '80%', height:'100%'}}>
+          <h1> Overall Statistics </h1>
+          <div className="row" style={{display: 'flex', 'flex-direction':'row', padding:'20px', height:'100%',
+              'padding-bottom': '100px', 'padding-top': '100px'}}>
+              <div style={{width: '75%', height:'100%'}}>
                 <SsimRangeChart />
               </div>
-              <div style={{width: '20%',  'padding-top': '50px'}}>
-              <DataTable style={{width: '20%'}}/>
+              <div style={{width: '25%'}}>
+                <DataTable style={{width: '100%'}}/>
               </div>
           </div>
+          <h2> History </h2>
         <div className="container-fluid">
           <Images/>
           <Row />
@@ -53,27 +56,33 @@ class Images extends Component {
                     status: response.status
                 })
             ).then(res => {
-                if (Number(res.data.count) > that.state.currentCount){
-                    alert("got higher count");
+                var diff = Number(res.data.count) - that.state.currentCount;
+                if (diff > 0){
                     that.setState({currentCount: Number(res.data.count)});
-                    that.fetchPanels();
+                    that.fetchPanels(diff);
                 }
             })
         );
     }
 
-    fetchPanels(){
+    fetchPanels(diff){
         var array = ["original", "input", "output"];
-        for(let i=0; i<Math.min(5, this.state.currentCount - this.state.panels.length) ;i++){
-            var images = array.map(image => {
-                let imageStr = url + 'getFile?fileDir=' + image + '&&index=' + i;
-                return  <div className="col-sm-4"><Panel><Panel.Heading><Panel.Title componentClass="h3">{image}</Panel.Title></Panel.Heading><Panel.Body><img key={image} src={imageStr} alt="" className="img-responsive" style={{width: '100%', height: '100%'}} /></Panel.Body></Panel></div>
-            });
-            var newArray = this.state.panels.slice();
-            newArray.unshift(images);
-            this.setState({panels: newArray});
-            alert(this.state.panels.length);
+        // var panelCopy = this.state.panels.splice();
+        var images = [];
+        this.setState({panels: []});
+        // for(var i=0; i<Math.min(5, diff) ;i++){
+        for(var i=0; i < 5 ;i++){
+            images.push(array.map(image => {
+                let imageStr = url + 'getFile?fileDir=' + image + '&&index=' + i + '&&time=' + new Date().getTime();
+                return  <div className="col-sm-4"><Panel>
+                    <Panel.Heading><Panel.Title componentClass="h3">{image}</Panel.Title></Panel.Heading>
+                    <Panel.Body><img key={image} src={imageStr} alt="" className="img-responsive" style={{width: '100%', height: '100%'}} /></Panel.Body>
+                </Panel></div>
+            }));
         }
+        // Array.prototype.push.apply(panelCopy, images);
+        this.setState({panels: images});
+        // this.forceUpdate();
     }
 
   render() {

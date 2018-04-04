@@ -27,7 +27,7 @@ const Table = (props) => {
         return (
         <table className="table table-striped">
             <thead>
-            {buildHeader(["", "SSIM Gain", "Disk Reduction"])}
+            {buildHeader(["Stat", "SSIM Gain", "Disk Reduction"])}
             </thead>
             <tbody>
             {buildRow(['Min', '', '' + '%'])}
@@ -43,7 +43,7 @@ const Table = (props) => {
     return (
         <table className="table table-striped">
             <thead>
-            {buildHeader(["", "SSIM Gain", "Disk Reduction"])}
+            {buildHeader(["Stat", "SSIM Gain", "Disk Reduction"])}
             </thead>
             <tbody>
             {buildRow(['Min', props.children.ssim.min, props.children.filesize.min + '%'])}
@@ -124,31 +124,28 @@ export class SsimRangeChart extends React.Component {
     }
     render() {
         return (
-            <div>
-                <h2>Nucking Figgers</h2>
-                <Bar
-                    data={{
-                        labels: ["(-INF, -0.1)","[-0.1, -0.05)",
-                            "[-0.05, 0.0)","[0.0, 0.05)","[0.05, 0.1)","[0.1, INF)"],
-                        datasets: [
-                            {
-                                label: '# Samples',
-                                backgroundColor: 'rgba(160,150,132,0.2)',
-                                borderColor: 'rgba(160,99,132,1)',
-                                borderWidth: 1,
-                                hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-                                hoverBorderColor: 'rgba(255,99,132,1)',
-                                data: this.state.dynamicData
-                            }
-                        ]
-                    }}
-                    width={100}
-                    height={250}
-                    options={{
-                        maintainAspectRatio: false
-                    }}
-                />
-            </div>
+            <Bar
+                data={{
+                    labels: ["(-INF, -0.1)","[-0.1, -0.05)",
+                        "[-0.05, 0.0)","[0.0, 0.05)","[0.05, 0.1)","[0.1, INF)"],
+                    datasets: [
+                        {
+                            label: '# Samples',
+                            backgroundColor: 'rgba(160,150,132,0.2)',
+                            borderColor: 'rgba(160,99,132,1)',
+                            borderWidth: 1,
+                            hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                            hoverBorderColor: 'rgba(255,99,132,1)',
+                            data: this.state.dynamicData
+                        }
+                    ]
+                }}
+                width={100}
+                height={600}
+                options={{
+                    maintainAspectRatio: false
+                }}
+            />
         );
     }
 }
