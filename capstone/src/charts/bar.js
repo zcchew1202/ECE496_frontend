@@ -7,7 +7,7 @@ const url='http://localhost:44000/';
 
 const buildRow = (row, i) => {
     let td = Object.keys(row).map((k, j) => {
-        return <td key={j}>{row[k]}</td>
+        return <td style={{height: '75px', 'font-size': '12px'}} key={j}>{row[k]}</td>
     })
     return (
         <tr key={i}>{td}</tr>
@@ -15,7 +15,7 @@ const buildRow = (row, i) => {
 }
 const buildHeader = (header) => {
     let th = header.map((k, j) => {
-        return <th key={j}>{k}</th>
+        return <th style={{height: '75px', 'font-size': '12px'}} key={j}>{k}</th>
     })
     return (
         <tr>{th}</tr>
@@ -126,8 +126,8 @@ export class SsimRangeChart extends React.Component {
         return (
             <Bar
                 data={{
-                    labels: ["(-INF, -0.1)","[-0.1, -0.05)",
-                        "[-0.05, 0.0)","[0.0, 0.05)","[0.05, 0.1)","[0.1, INF)"],
+                    labels: ["(-INF, 0]","(0, 0.025]",
+                        "(0.025, 0.05]","(0.05, 0.075]","(0.075, 0.1]","(0.1, INF)"],
                     datasets: [
                         {
                             label: '# Samples',
