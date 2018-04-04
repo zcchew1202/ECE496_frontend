@@ -1,8 +1,9 @@
 import React from 'react';
 import {Bar} from 'react-chartjs-2';
 import { getBarGraphData, getStats } from '../utility/GraphHelper';
+import {defaults} from 'react-chartjs-2';
 
-
+defaults.global.defaultFontSize = 28;
 const url='http://localhost:44000/';
 
 const buildRow = (row, i) => {
@@ -131,7 +132,7 @@ export class SsimRangeChart extends React.Component {
                     datasets: [
                         {
                             label: '# Samples',
-                            backgroundColor: 'rgba(160,150,132,0.2)',
+                            backgroundColor: 'rgba(0,0,0,1)',
                             borderColor: 'rgba(160,99,132,1)',
                             borderWidth: 1,
                             hoverBackgroundColor: 'rgba(255,99,132,0.4)',
